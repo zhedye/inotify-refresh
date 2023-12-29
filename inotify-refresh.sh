@@ -48,7 +48,10 @@ inotifywait -m -r \
   fi
   if test $((now > last+1)) -eq 1; then
     last=$now
-    br () { xdotool search --onlyvisible --name "${tab_title}.*(${browser})$" $@; }
+    br () {
+      sleep 0.1; # 0.1 seconds
+      xdotool search --onlyvisible --name "${tab_title}.*(${browser})$" $@;
+    }
     if [ -n "$(br)" ]; then
       echo "refreshing...">&2
       br key --clearmodifiers --window %@ 'F5'
